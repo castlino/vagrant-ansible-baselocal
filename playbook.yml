@@ -10,3 +10,6 @@
   roles:
     - webserver
     - database
+    - git
+    - composer
+    - drush

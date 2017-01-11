@@ -1,0 +1,26 @@
+---
+- name: change directory
+  shell: >
+    cd /home/vagrant
+
+- name: Get drush phar
+  shell: >
+    curl -O https://s3.amazonaws.com/files.drush.org/drush.phar
+
+- name: Move drush phar
+  shell: >
+    mv drush.phar drush
+
+- name: chmod drush
+  shell: >
+    chmod +x drush
+
+- name: move drush to /src/local/bin
+  shell: >
+    mv /home/vagrant/drush /usr/local/bin
+
+- name: Run drush to finish setting it up.
+  command: "{{ drush_path }}"
+  register: drush_result
+  changed_when: "'Execute a drush command' not in drush_result.stdout"
+  become: no
