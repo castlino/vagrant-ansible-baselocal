@@ -5,3 +5,5 @@
   apt: name=php5-mysql state=present
 - name: install php-gd
   apt: name=php5-gd state=present
+- name: install php-curl
+  apt: name=php5-curl state=present

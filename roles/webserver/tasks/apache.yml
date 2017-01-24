@@ -18,3 +18,7 @@
     state=link
   notify:
     - reload apache server
+- name: Enable mod_rewrite module
+  apache2_module:
+    state: present
+    name: rewrite
