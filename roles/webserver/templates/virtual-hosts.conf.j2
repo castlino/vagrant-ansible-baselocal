@@ -1,8 +1,10 @@
 <VirtualHost *:80>
         ServerAdmin webmaster@localhost
-        DocumentRoot {{ document_root }}
+        DocumentRoot {{ document_root }}/drupal7x
 
-        <Directory {{ document_root }}>
+        <Directory {{ document_root }}/drupal7x>
+          Options Indexes FollowSymlinks MultiViews
+          AllowOverride ALL
           Require all granted
         </Directory>
 

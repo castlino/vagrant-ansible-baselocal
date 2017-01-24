@@ -3,18 +3,21 @@
   apt: name=apache2 state=present
 - name: Copy new virtual host file
   template:
-    src=virtual-hosts.conf.j2
-    dest=/etc/apache2/sites-available/vagrant.conf
+    src: "{{ apache_vhosts_template }}"
+    dest: "/etc/apache2/sites-available/{{ apache_vhosts_filename }}"
+    owner: root
+    group: root
+    mode: 0644 
 - name: Remove default virtual hosts
   file:
     path=/etc/apache2/sites-enabled/000-default.conf
     state=absent
   notify:
     - reload apache server
-- name: Enable news vagrant virtual host
+- name: Symlink vagrant virtual host
   file:
-    src=/etc/apache2/sites-available/vagrant.conf
-    dest=/etc/apache2/sites-enabled/vagrant.conf
+    src=/etc/apache2/sites-available/{{ apache_vhosts_filename }}
+    dest=/etc/apache2/sites-enabled/{{ apache_vhosts_filename }}
     state=link
   notify:
     - reload apache server
