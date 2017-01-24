@@ -3,19 +3,27 @@
   shell: >
     cd /home/vagrant
 
+#- name: Get drush phar
+#  shell: >
+#    curl -O https://s3.amazonaws.com/files.drush.org/drush.phar
+
+#- name: chmod drush
+#  shell: >
+#    chmod +x drush.phar
+
+# Previous 2 steps above will get replaced by 
+# this one step below to prevent ansible warning message...
 - name: Get drush phar
-  shell: >
-    curl -O https://s3.amazonaws.com/files.drush.org/drush.phar
+  get_url:
+    url: https://s3.amazonaws.com/files.drush.org/drush.phar
+    dest: /home/vagrant/drush.phar
+    mode: 0755
 
 - name: Move drush phar
   shell: >
     mv drush.phar drush
 
-- name: chmod drush
-  shell: >
-    chmod +x drush
-
-- name: move drush to /src/local/bin
+- name: move drush to /usr/local/bin
   shell: >
     mv /home/vagrant/drush /usr/local/bin
 
